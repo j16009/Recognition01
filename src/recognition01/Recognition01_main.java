@@ -33,20 +33,41 @@ public class Recognition01_main {
 		try {
 			JsonNode node = mapper.readTree(s);
 
-			int age_min = node.get("images").get(0).get("faces").get(0).get("age").get("min").asInt();
-			System.out.println("age_min : " + age_min);
+			int age_min=node.get("images")
+					.get(0).get("faces")
+					.get(0).get("age")
+					.get("min")
+					.asInt();
+			int age_max=node.get("images")
+					.get(0).get("faces")
+					.get(0).get("age")
+					.get("max")
+					.asInt();
+			double age_score=node.get("images")
+					.get(0).get("faces")
+					.get(0).get("age")
+					.get("score")
+					.asDouble();
+			int gender=node.get("images")
+					.get(0).get("faces")
+					.get(0).get("gender")
+					.get("gender")
+					.asInt();
+			double gender_score=node.get("images")
+					.get(0).get("faces")
+					.get(0).get("gender")
+					.get("score")
+					.asDouble();
 
-			int age_max = node.get("images").get(0).get("faces").get(0).get("age").get("max").asInt();
-			System.out.println("age_max : " + age_max);
+			System.out.println("age_min:"+age_min);
+			System.out.println("age_max:"+age_max);
+			System.out.println("age_score:"+age_score);
+			System.out.println("Gender:"+gender);
+			System.out.println("Gender_score:"+gender_score);
 
-			float age_score = node.get("images").get(0).get("faces").get(0).get("age").get("score").floatValue();
-			System.out.println("age_score : " + age_score);
+			MySQL mysql = new MySQL();
+			mysql.updateImage(age_min,age_max,age_score,gender,gender_score);
 
-			String Gender = node.get("images").get(0).get("faces").get(0).get("gender").get("gender").asText();
-			System.out.println("Gender : " + Gender);
-
-			float Gender_score = node.get("images").get(0).get("faces").get(0).get("gender").get("score").floatValue();
-			System.out.println("Gender_score : " + Gender_score);
 
 
 		} catch (IOException e) {
